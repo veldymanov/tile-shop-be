@@ -1,10 +1,13 @@
 # Tile Shop BE
 
+## FE url
+https://d2lvjuwl8mt9u1.cloudfront.net/
+
 ## getProduclist endpoint
-https://t7n2oczfa8.execute-api.eu-west-1.amazonaws.com/dev/product-list
+https://i7pjln1loi.execute-api.eu-west-1.amazonaws.com/dev/product-list
 
 ## getProductById endpoint
-https://t7n2oczfa8.execute-api.eu-west-1.amazonaws.com/dev/product
+https://i7pjln1loi.execute-api.eu-west-1.amazonaws.com/dev/product/{id}
 
 ### getProductById testing ids:
 7567ec4b-b10c-45c5-9345-fc73c48a80a1
