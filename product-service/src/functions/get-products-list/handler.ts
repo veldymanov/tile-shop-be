@@ -6,10 +6,11 @@ import { middyfy } from '@libs/lambda';
 import * as productList from "./products-mock.json";
 
 const getProductsList: APIGatewayProxyHandler = async (event) => {
-  console.log('getProductsList invokation: ', event);
+  const products = Array.from(productList);
+  console.log('getProductsList invokation, event: ', event.resource);
 
   return formatJSONResponse({
-    products: productList
+    products
   });
 }
 

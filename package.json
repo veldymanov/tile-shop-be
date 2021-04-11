@@ -4,8 +4,8 @@
   "description": "Internet Shop",
   "scripts": {
     "deploy:product-service": "cd product-service && sls deploy",
-    "deploy:product-service:getShopAdminInfo": "cd product-service && sls deploy -f getProductsList",
-    "invoke:product-service:getShopInfo": "cd product-service && sls invoke local -f getProductsList --path ./src/functions/get-products-list/mock.json"
+    "deploy:product-service:getProductsList": "cd product-service && sls deploy -f getProductsList",
+    "invoke:product-service:getProductsList": "cd product-service && sls invoke local -f getProductsList --path ./src/functions/get-products-list/mock.json"
   },
   "author": "Veldymanov",
   "license": "ISC"
