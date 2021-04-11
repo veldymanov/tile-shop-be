@@ -6,13 +6,14 @@ import { Product } from '@libs/interfaces'
 
 import * as productList from "@libs/products-mock.json";
 
-const getProductsList: APIGatewayProxyHandler = async (event) => {
+const getProductById: APIGatewayProxyHandler = async (event) => {
   console.log('getProductsList invokation, event: ', event);
+  const { id } = event.queryStringParameters;
   const products: Product[] = Array.from(productList);
 
   return formatJSONResponse({
-    products
+    product: products.find(product => product.id === id)
   });
 }
 
-export const main = middyfy(getProductsList);
+export const main = middyfy(getProductById);
