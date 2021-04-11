@@ -1,18 +1,22 @@
 import 'source-map-support/register';
-import { APIGatewayProxyHandler } from 'aws-lambda'
+import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda'
 import { formatJSONResponse, formatJSONError } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
 import { Product } from '@libs/interfaces'
+import { getProducts } from '@libs/db-mock';
 
-import * as productList from "@libs/products-mock.json";
-
-const getProductsList: APIGatewayProxyHandler = async (event) => {
+export const getProductsList = async (
+  event: APIGatewayProxyEvent
+): Promise<APIGatewayProxyResult> => {
   try {
-    console.log('getProductsList invokation, event: ', event);
-    const products: Product[] = Array.from(productList);
+    console.log('getProductsList invokation, event: ', event.path);
+
+    const products: Product[] = await getProducts();
+
     if (!products) {
       return formatJSONError({ message: 'Product is missing' });
     }
+
     return formatJSONResponse({ products });
   } catch (error) {
     return formatJSONError({ error });

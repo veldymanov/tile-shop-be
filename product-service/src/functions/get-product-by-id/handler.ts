@@ -3,13 +3,12 @@ import { APIGatewayProxyHandler } from 'aws-lambda'
 import { formatJSONResponse, formatJSONError } from '@libs/apiGateway';
 import { middyfy } from '@libs/lambda';
 import { Product } from '@libs/interfaces'
-
-import * as productList from "@libs/products-mock.json";
+import { getProducts } from '@libs/db-mock';
 
 const getProductById: APIGatewayProxyHandler = async (event) => {
   try {
-    console.log('getProductsList invokation, event: ', event);
-    const products: Product[] = Array.from(productList);
+    console.log('getProductsList invokation, event: ', event.path);
+    const products: Product[] = await getProducts();
     const id = event.pathParameters?.id;
     const product = products.find(product => product.id === id);
     if (!product) {
