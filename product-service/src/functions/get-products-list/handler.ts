@@ -14,7 +14,7 @@ export const getProductsList = async (
     const products: Product[] = await getProducts();
 
     if (!products) {
-      return formatJSONError({ message: 'Product is missing' });
+      return formatJSONError({ message: 'Products are missing' });
     }
 
     return formatJSONResponse({ products });

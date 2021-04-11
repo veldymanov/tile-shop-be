@@ -50,6 +50,6 @@ describe('getProductsList', () => {
     const message = JSON.parse(resp.body).message;
 
     expect(getProductsMock).toHaveBeenCalledTimes(1);
-    expect(message).toBe('Product is missing');
+    expect(message).toBe('Products are missing');
   });
 });
