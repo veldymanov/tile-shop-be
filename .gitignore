@@ -6,11 +6,12 @@ node_modules
 .pnp.js
 
 # testing
-/coverage
+coverage
 
 # production
 build
 .serverless
+.webpack
 
 # misc
 .DS_Store
