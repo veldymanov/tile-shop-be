@@ -17,7 +17,7 @@ describe('snakeToCamelObj', () => {
     expect(result).toEqual(camelObj);
   });
 
-  it('should throw CamelObjectError', () => {
+  it('should throw SnakelObjectError', () => {
     expect(() => snakeToCamelObj([])).toThrow(SnakeObjectError);
     expect(() => snakeToCamelObj([])).toThrow('Wrong Snake Object property names');
   })

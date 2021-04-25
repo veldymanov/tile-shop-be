@@ -6,6 +6,7 @@ export interface ProductDB {
   title: string;
   description: string;
   price: number;
+  count: number;
   created_date: Date;
   updated_date: Date;
 }
@@ -15,4 +16,6 @@ export interface Product {
   description: string;
   price: number;
   count: number;
+  createdDate?: Date;
+  updatedDate?: Date;
 }
