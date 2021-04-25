@@ -2,7 +2,7 @@ export interface dbObject {
   [key: string]: any;
 }
 export interface ProductDB {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   price: number;
@@ -11,7 +11,7 @@ export interface ProductDB {
   updated_date: Date;
 }
 export interface Product {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   price: number;
