@@ -43,6 +43,7 @@ describe('getProducts', () => {
     expect(products[0].title).toBe(productsMock[0].title);
   });
 
+  // TODO: refactor
   it('should return error message', async () => {
     const getProductsMock = getProductsSpy.mockImplementation(() => Promise.resolve(undefined));
     const event: APIGatewayProxyEvent = mockEvent as any;

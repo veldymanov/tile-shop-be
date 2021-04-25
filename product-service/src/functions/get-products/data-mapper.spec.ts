@@ -45,7 +45,7 @@ const products: Product[] = [
 ];
 
 describe('dbToDomainData', () => {
-  it('should db data to domain data', () => {
+  it('should map db data to domain data', () => {
     const result = dbToDomainData(dbProducts);
     expect(result).toEqual(products);
   });
