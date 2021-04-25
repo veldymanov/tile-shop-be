@@ -4,7 +4,13 @@
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
-    "test": "jest"
+    "deploy:product-service": "sls deploy",
+    "deploy:product-service:getProductsList": "sls deploy -f getProductsList",
+    "invoke:product-service:getProductsList": "sls invoke local -f getProductsList --path ./src/functions/get-products-list/mock.json",
+    "deploy:product-service:getProductById": "sls deploy -f getProductById",
+    "invoke:product-service:getProductById": "sls invoke local -f getProductById --path ./src/functions/get-product-by-id/mock.json",
+    "test": "jest",
+    "test:file": "jest src/functions/get-products-list/data-mapper.spec.ts"
   },
   "engines": {
     "node": ">=14.15.0"
@@ -12,6 +18,7 @@
   "dependencies": {
     "@middy/core": "^1.5.2",
     "@middy/http-json-body-parser": "^1.5.2",
+    "pg": "^8.6.0",
     "source-map-support": "^0.5.19"
   },
   "devDependencies": {
@@ -19,6 +26,8 @@
     "@types/aws-lambda": "^8.10.71",
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.25",
+    "@types/pg": "^7.14.11",
+    "@types/uuid": "^8.3.0",
     "jest": "^26.6.3",
     "json-schema-to-ts": "^1.5.0",
     "serverless": "^2.23.0",
