@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { getProductsList } from './handler';
+import { getProducts } from './handler';
 import mockEvent from './mock.json';
-import * as dataModule from '@libs/db-mock';
+import * as model from './model';
 import { Product } from '@libs/interfaces';
 
 const productsMock: Product[] = [
@@ -21,11 +21,11 @@ const productsMock: Product[] = [
   }
 ];
 
-describe('getProductsList', () => {
+describe('getProducts', () => {
   let getProductsSpy;
 
   beforeEach(() => {
-    getProductsSpy = jest.spyOn(dataModule, 'getProducts');
+    getProductsSpy = jest.spyOn(model, 'getDbProducts');
   });
 
   afterEach(() => {
@@ -35,7 +35,7 @@ describe('getProductsList', () => {
   it('should return product list', async () => {
     const getProductsMock = getProductsSpy.mockImplementation(() => Promise.resolve(productsMock));
     const event: APIGatewayProxyEvent = mockEvent as any;
-    const resp: APIGatewayProxyResult = await getProductsList(event);
+    const resp: APIGatewayProxyResult = await getProducts(event);
     const products: Product[] = JSON.parse(resp.body).products;
 
     expect(getProductsMock).toHaveBeenCalledTimes(1);
@@ -46,7 +46,7 @@ describe('getProductsList', () => {
   it('should return error message', async () => {
     const getProductsMock = getProductsSpy.mockImplementation(() => Promise.resolve(undefined));
     const event: APIGatewayProxyEvent = mockEvent as any;
-    const resp: APIGatewayProxyResult = await getProductsList(event);
+    const resp: APIGatewayProxyResult = await getProducts(event);
     const message = JSON.parse(resp.body).message;
 
     expect(getProductsMock).toHaveBeenCalledTimes(1);

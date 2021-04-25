@@ -11,3 +11,11 @@ export class SnakeObjectError extends Error {
     this.name = this.constructor.name;
   }
 }
+
+
+export class DBError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = this.constructor.name;
+  }
+}

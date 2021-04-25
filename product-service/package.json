@@ -5,8 +5,8 @@
   "main": "serverless.ts",
   "scripts": {
     "deploy:product-service": "sls deploy",
-    "deploy:product-service:getProductsList": "sls deploy -f getProductsList",
-    "invoke:product-service:getProductsList": "sls invoke local -f getProductsList --path ./src/functions/get-products-list/mock.json",
+    "deploy:product-service:getProducts": "sls deploy -f getProducts",
+    "invoke:product-service:getProducts": "sls invoke local -f getProducts --path ./src/functions/get-products/mock.json",
     "deploy:product-service:getProductById": "sls deploy -f getProductById",
     "invoke:product-service:getProductById": "sls invoke local -f getProductById --path ./src/functions/get-product-by-id/mock.json",
     "test": "jest",

@@ -1,36 +1,32 @@
 import 'source-map-support/register';
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda';
-import { QueryResult } from 'pg';
-
-import { client } from '@libs/db';
 import { formatJSONResponse, formatJSONError } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import { Product, ProductDB } from '@libs/interfaces'
+import { getDbProducts } from './model';
 import { dbToDomainData } from './data-mapper';
+import { DBError } from '@libs/error-types';
 
-
-
-export const getProductsList = async (
+export const getProducts = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
     console.log('getProducts invokation, event: ', event.path);
+    const dbProducts: ProductDB[] = await getDbProducts();
 
-    await client.connect();
-    const queryRes: QueryResult<ProductDB> = await client.query('SELECT * from products');
-    const products: Product[] = dbToDomainData(queryRes.rows);
-
-    if (!products) {
+    if (!dbProducts) {
       return formatJSONError({ message: 'Products are missing' });
     }
 
+    const products: Product[] = dbToDomainData(dbProducts);
     return formatJSONResponse({ products });
   } catch (e) {
-    console.error(e);
-    return formatJSONError({ error: e });
-  } finally {
-    client.end();
+    if ( e instanceof DBError) {
+      return formatJSONError({ error: e });
+    } else {
+      throw e;
+    }
   }
 }
 
-export const main = middyfy(getProductsList);
+export const main = middyfy(getProducts);
