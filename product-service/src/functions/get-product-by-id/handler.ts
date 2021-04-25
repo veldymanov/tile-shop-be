@@ -1,6 +1,6 @@
 import 'source-map-support/register';
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda'
-import { formatJSONResponse, formatJSONError } from '@libs/apiGateway';
+import { formatJSONResponse, formatJSONError } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import { Product } from '@libs/interfaces'
 import { getProducts } from '@libs/db-mock';
