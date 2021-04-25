@@ -9,8 +9,15 @@ export const getDbProductById = async (id: string): Promise<ProductDB> => {
   try {
     await client.connect();
     const query = `
-      SELECT * FROM products
-      WHERE id = $1;
+      SELECT
+        p.id,
+        p.title,
+        p.description,
+        p.price,
+        s.count
+      FROM products AS p
+      JOIN stock AS s ON s.product_id = p.id
+      WHERE p.id = $1;
     `;
     const queryRes: QueryResult<ProductDB> = await client.query(query, [id]);
     return queryRes.rows[0];

@@ -8,7 +8,16 @@ export const getDbProducts = async (): Promise<ProductDB[]> => {
 
   try {
     await client.connect();
-    const query = `SELECT * FROM products;`;
+    const query = `
+      SELECT
+        p.id,
+        p.title,
+        p.description,
+        p.price,
+        s.count
+      FROM products AS p
+      JOIN stock AS s ON s.product_id = p.id;
+    `;
     const queryRes: QueryResult<ProductDB> = await client.query(query, []);
     return queryRes.rows;
   } catch (e) {
