@@ -22,7 +22,7 @@ export const getProductById = async (
     const product: Product = dbToDomainData(dbProduct);
     return formatJSONResponse({ product });
   } catch (e) {
-    if ( e instanceof DBError) {
+    if (e instanceof DBError) {
       return formatJSONError({ error: e });
     } else {
       throw e;
