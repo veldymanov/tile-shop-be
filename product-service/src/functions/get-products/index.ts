@@ -1,4 +1,4 @@
-import { handlerPath } from '@libs/handlerResolver';
+import { handlerPath } from '@libs/handler-resolver';
 
 export default {
   handler: `${handlerPath(__dirname)}/handler.main`,
@@ -6,7 +6,7 @@ export default {
     {
       http: {
         method: 'get',
-        path: 'product-list',
+        path: 'products',
         cors: true
       }
     }

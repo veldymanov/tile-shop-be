@@ -1,38 +1,31 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { getProductById } from './handler';
-import * as dataModule from '@libs/db-mock';
-import { Product } from '@libs/interfaces';
+import * as model from './model';
+import { Product, ProductDB } from '@libs/interfaces';
 
-const productsMock: Product[] = [
-  {
-    count: 4,
-    description: 'Short Product Description1',
-    id: '7567ec4b-b10c-48c5-9345-fc73c48a80aa',
-    price: 2.4,
-    title: 'ProductOne'
-  },
-  {
-    count: 6,
-    description: 'Short Product Description3',
-    id: '7567ec4b-b10c-48c5-9345-fc73c48a80a0',
-    price: 10,
-    title: 'ProductNew'
-  }
-];
+const productMock: ProductDB = {
+  count: 4,
+  description: 'Short Product Description1',
+  id: '7567ec4b-b10c-48c5-9345-fc73c48a80aa',
+  price: 2.4,
+  title: 'ProductOne',
+  created_date: new Date('01/01/2021'),
+  updated_date: new Date('01/01/2021'),
+};
 
 describe('getProductById', () => {
-  let getProductsMock;
+  let getProductByIdSpy;
 
   beforeEach(() => {
-    getProductsMock = jest.spyOn(dataModule, 'getProducts')
-      .mockImplementation(() => Promise.resolve(productsMock));
+    getProductByIdSpy = jest.spyOn(model, 'getDbProductById');
   });
 
   afterEach(() => {
-    getProductsMock.mockRestore();
+    getProductByIdSpy.mockRestore();
   });
 
   it('should return product by id', async () => {
+    const getProductMock = getProductByIdSpy.mockImplementation(() => Promise.resolve(productMock));
     const event: APIGatewayProxyEvent = {
       pathParameters: {
         id: '7567ec4b-b10c-48c5-9345-fc73c48a80aa'
@@ -41,11 +34,13 @@ describe('getProductById', () => {
     const resp: APIGatewayProxyResult = await getProductById(event);
     const product: Product = JSON.parse(resp.body).product;
 
-    expect(getProductsMock).toHaveBeenCalledTimes(1);
+    expect(getProductMock).toHaveBeenCalledTimes(1);
     expect(product.id).toBe(event.pathParameters.id);
   });
 
+  // TODO: refactor
   it('should return error message', async () => {
+    const getProductMock = getProductByIdSpy.mockImplementation(() => Promise.resolve(undefined));
     const event: APIGatewayProxyEvent = {
       pathParameters: {
         id: 'fake'
@@ -54,7 +49,7 @@ describe('getProductById', () => {
     const resp: APIGatewayProxyResult = await getProductById(event);
     const message = JSON.parse(resp.body).message;
 
-    expect(getProductsMock).toHaveBeenCalledTimes(1);
+    expect(getProductMock).toHaveBeenCalledTimes(1);
     expect(message).toBe('Product is missing');
   });
 });

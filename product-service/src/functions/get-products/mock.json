@@ -1,6 +1,6 @@
 {
-  "resource":"/product-list",
-  "path":"/product-list",
+  "resource":"/products",
+  "path":"/products",
   "httpMethod":"GET",
   "headers":{
      "Accept":"*/*",

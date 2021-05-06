@@ -1,27 +1,32 @@
 import 'source-map-support/register';
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda'
-import { formatJSONResponse, formatJSONError } from '@libs/apiGateway';
+import { formatJSONResponse, formatJSONError } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-import { Product } from '@libs/interfaces'
-import { getProducts } from '@libs/db-mock';
+import { Product, ProductDB } from '@libs/interfaces';
+import { getDbProductById } from './model';
+import { dbToDomainData } from './data-mapper';
+import { DBError } from '@libs/error-types';
 
 export const getProductById = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   try {
     console.log('getProductsList invokation, event: ', event.pathParameters);
-
-    const products: Product[] = await getProducts();
     const id = event.pathParameters?.id;
-    const product = products.find(product => product.id === id);
+    const dbProduct: ProductDB = await getDbProductById(id);
 
-    if (!product) {
+    if (!dbProduct) {
       return formatJSONError({ message: 'Product is missing' });
     }
 
+    const product: Product = dbToDomainData(dbProduct);
     return formatJSONResponse({ product });
-  } catch (error) {
-    return formatJSONError({ error });
+  } catch (e) {
+    if ( e instanceof DBError) {
+      return formatJSONError({ error: e });
+    } else {
+      throw e;
+    }
   }
 }
 
