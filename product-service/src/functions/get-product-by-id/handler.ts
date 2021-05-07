@@ -7,9 +7,7 @@ import { getDbProductById } from './model';
 import { dbToDomainData } from './data-mapper';
 import { DBError } from '@libs/error-types';
 
-export const getProductById = async (
-  event: APIGatewayProxyEvent
-): Promise<APIGatewayProxyResult> => {
+export const getProductById = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     console.log('getProductsList invokation, event: ', event.pathParameters);
     const id = event.pathParameters?.id;
