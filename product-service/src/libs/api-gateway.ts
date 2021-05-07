@@ -16,6 +16,8 @@ export const formatJSONResponse = (resp: Record<string, unknown>) => {
 }
 
 export const formatJSONError = (err: Record<string, unknown>) => {
+  console.log(err.stack);
+
   return {
     statusCode: 500,
     headers: {

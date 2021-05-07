@@ -6,11 +6,13 @@
   "scripts": {
     "deploy:product-service": "sls deploy",
     "deploy:product-service:getProducts": "sls deploy -f getProducts",
-    "invoke:product-service:getProducts": "sls invoke local -f getProducts --path ./src/functions/get-products/mock.json",
+    "invoke:product-service:getProducts": "sls invoke local -f getProducts -p ./src/functions/get-products/mock.json",
     "deploy:product-service:getProductById": "sls deploy -f getProductById",
-    "invoke:product-service:getProductById": "sls invoke local -f getProductById --path ./src/functions/get-product-by-id/mock.json",
+    "invoke:product-service:getProductById": "sls invoke local -f getProductById -p ./src/functions/get-product-by-id/mock.json",
     "deploy:product-service:createProduct": "sls deploy -f createProduct",
-    "invoke:product-service:createProduct": "sls invoke local -f createProduct --path ./src/functions/create-product/mock.json",
+    "invoke:product-service:createProduct": "sls invoke local -f createProduct -p ./src/functions/create-product/mock.json",
+    "deploy:product-service:getThumbnails": "sls deploy -f getThumbnails",
+    "invoke:product-service:getThumbnails": "sls invoke local -f getThumbnails -p ./src/functions/get-thumbnails/mock.json",
     "test": "jest",
     "test:file": "jest src/functions/create-product/handler.spec.ts"
   },
@@ -20,10 +22,12 @@
   "dependencies": {
     "@middy/core": "^1.5.2",
     "@middy/http-json-body-parser": "^1.5.2",
+    "aws-sdk": "^2.901.0",
     "pg": "^8.6.0",
     "source-map-support": "^0.5.19"
   },
   "devDependencies": {
+    "@aws-sdk/types": "^3.13.1",
     "@serverless/typescript": "^2.23.0",
     "@types/aws-lambda": "^8.10.71",
     "@types/jest": "^26.0.22",
