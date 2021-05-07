@@ -4,12 +4,7 @@
   "description": "Internet Shop",
   "scripts": {
     "deploy:product-service": "cd product-service && sls deploy",
-    "deploy:product-service:getProducts": "cd product-service && sls deploy -f getProducts",
-    "invoke:product-service:getProducts": "cd product-service && sls invoke local -f getProducts -p ./src/functions/get-products/mock.json",
-    "deploy:product-service:getProductById": "cd product-service && sls deploy -f getProductById",
-    "invoke:product-service:getProductById": "cd product-service && sls invoke local -f getProductById -p ./src/functions/get-product-by-id/mock.json",
-    "deploy:product-service:createProduct": "cd product-service && sls deploy -f createProduct",
-    "invoke:product-service:createProduct": "cd product-service && sls invoke local -f createProduct -p ./src/functions/create-product/mock.json"
+    "deploy:import-service": "cd import-service && sls deploy"
   },
   "author": "Veldymanov",
   "license": "ISC"

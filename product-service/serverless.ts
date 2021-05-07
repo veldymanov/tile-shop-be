@@ -29,12 +29,16 @@ const serverlessConfiguration: AWS = {
       {
         Effect: 'Allow',
         Action: ['s3:ListBucket'],
-        Resource: 'arn:aws:s3:::product-service-thumbnails',
+        Resource: [
+          'arn:aws:s3:::product-service-thumbnails'
+        ],
       },
       {
         Effect: 'Allow',
         Action: ['s3:*'],
-        Resource: 'arn:aws:s3:::product-service-thumbnails/*',
+        Resource: [
+          'arn:aws:s3:::product-service-thumbnails/*'
+        ],
       },
     ],
     environment: {

@@ -79,16 +79,14 @@
      ]
   },
   "queryStringParameters":{
-     "name":"qwertyui"
+     "name":"qwertyui.csv"
   },
   "multiValueQueryStringParameters":{
      "name":[
         "qwertyui"
      ]
   },
-  "pathParameters":{
-    "fileName": "mock.csv"
-  },
+  "pathParameters":null,
   "stageVariables":null,
   "requestContext":{
      "resourceId":"hroawp",

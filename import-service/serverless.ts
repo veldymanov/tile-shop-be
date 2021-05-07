@@ -1,5 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 
+import importFileParser from '@functions/import-file-parser';
 import importProductsFile from '@functions/import-products-file';
 
 const serverlessConfiguration: AWS = {
@@ -25,12 +26,16 @@ const serverlessConfiguration: AWS = {
       {
         Effect: 'Allow',
         Action: ['s3:ListBucket'],
-        Resource: 'arn:aws:s3:::tile-shop-storage',
+        Resource: [
+          'arn:aws:s3:::tile-shop-storage'
+        ],
       },
       {
         Effect: 'Allow',
         Action: ['s3:*'],
-        Resource: 'arn:aws:s3:::tile-shop-storage/*',
+        Resource: [
+          'arn:aws:s3:::tile-shop-storage/*'
+        ],
       },
     ],
     environment: {
@@ -38,8 +43,8 @@ const serverlessConfiguration: AWS = {
     },
     lambdaHashingVersion: '20201221',
   },
-  // import the function via paths
   functions: {
+    importFileParser,
     importProductsFile
   },
 };
