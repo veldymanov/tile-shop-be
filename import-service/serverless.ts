@@ -1,6 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 
-import hello from '@functions/hello';
+import importProductsFile from '@functions/import-products-file';
 
 const serverlessConfiguration: AWS = {
   service: 'import-service',
@@ -21,13 +21,27 @@ const serverlessConfiguration: AWS = {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
+    iamRoleStatements: [
+      {
+        Effect: 'Allow',
+        Action: ['s3:ListBucket'],
+        Resource: 'arn:aws:s3:::tile-shop-storage',
+      },
+      {
+        Effect: 'Allow',
+        Action: ['s3:*'],
+        Resource: 'arn:aws:s3:::tile-shop-storage/*',
+      },
+    ],
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
     },
     lambdaHashingVersion: '20201221',
   },
   // import the function via paths
-  functions: { hello },
+  functions: {
+    importProductsFile
+  },
 };
 
 module.exports = serverlessConfiguration;
