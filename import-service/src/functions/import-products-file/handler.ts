@@ -8,7 +8,7 @@ const BUCKET = 'tile-shop-storage';
 const REGION = 'eu-west-1';
 
 export const importProductsFile = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  console.log(event.path);
+  console.log('importProductsFile invokation, event: ', event.pathParameters);
 
   const s3 = new AWS.S3({ region: REGION })
   let imports = [];
@@ -23,7 +23,10 @@ export const importProductsFile = async (event: APIGatewayProxyEvent): Promise<A
       .filter(obj => obj.Size)
       .map(obj => `https://${BUCKET}.s3-${REGION}.amazonaws.com/${obj.Key}`);
 
-    return formatJSONResponse({ imports });
+    return formatJSONResponse({
+      imports,
+      fileName: event.pathParameters
+    });
   } catch (e) {
     if ( e instanceof Error) {
       return formatJSONError({ error: e });

@@ -86,7 +86,9 @@
         "qwertyui"
      ]
   },
-  "pathParameters":null,
+  "pathParameters":{
+    "fileName": "mock.csv"
+  },
   "stageVariables":null,
   "requestContext":{
      "resourceId":"hroawp",
