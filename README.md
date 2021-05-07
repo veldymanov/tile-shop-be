@@ -24,8 +24,8 @@ GET - https://i7pjln1loi.execute-api.eu-west-1.amazonaws.com/dev/product/{id}
 
 ## Serverless
 ### Create service in new forlder
-sls create --template (or -t) aws-nodejs --path (or -p) product-service --name (or -n) --name (or -n) product-service
-sls create --template (or -t) aws-nodejs-typescript --path (or -p) product-service --name (or -n) product-service
+sls create --template (or -t) aws-nodejs --path (or -p) product-service --name (or -n) product-service
+sls create -t aws-nodejs-typescript -p product-service -n product-service
 
 ### Deploy service
 sls deploy
