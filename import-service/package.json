@@ -10,7 +10,7 @@
     "deploy:importFileParser": "sls deploy -f importFileParser",
     "invoke:importFileParser": "sls invoke local -f importFileParser",
     "test": "jest",
-    "test:file": "jest src/functions/create-product/handler.spec.ts"
+    "test:file": "jest src/functions/import-products-file/handler.spec.ts"
   },
   "engines": {
     "node": ">=14.15.0"
@@ -28,10 +28,12 @@
     "@types/aws-lambda": "^8.10.71",
     "@types/jest": "^26.0.23",
     "@types/node": "^14.14.25",
+    "aws-sdk-mock": "^5.1.0",
     "jest": "^26.6.3",
     "json-schema-to-ts": "^1.5.0",
     "serverless": "^2.23.0",
     "serverless-webpack": "^5.3.5",
+    "ts-jest": "^26.5.6",
     "ts-loader": "^8.0.15",
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",

@@ -27,8 +27,8 @@ export const formatJSONResponse = (resp: Object, statusCode: number = 200) => {
   }
 }
 
-export const formatJSONError = (err: Error | any, statusCode: number = 500) => {
-  console.error(err);
+export const formatJSONError = (err: Error, statusCode: number = 500) => {
+  console.log(err.message);
 
   return {
     statusCode,

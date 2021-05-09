@@ -53,9 +53,9 @@ export const importFileParser = async (event: S3Event): Promise<APIGatewayProxyR
         });
     });
 
-    return formatJSONResponse({ success: true });
+    return formatJSONResponse(null, 202);
   } catch (error) {
-    return formatJSONError({ error });
+    return formatJSONError(error);
   }
 }
 

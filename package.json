@@ -8,8 +8,10 @@
     "deploy:importProductsFile": "cd import-service && sls deploy -f importProductsFile",
     "invoke:importProductsFile": "cd import-service && sls invoke local -f importProductsFile -p ./src/functions/import-products-file/mock.json",
     "deploy:importFileParser": "cd import-service && sls deploy -f importFileParser",
-    "invoke:importFileParser": "cd import-service && sls invoke local -f importFileParser"
+    "invoke:importFileParser": "cd import-service && sls invoke local -f importFileParser",
+    "test:importFileParser": "cd import-service && jest"
   },
   "author": "Veldymanov",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {}
 }

@@ -22,9 +22,9 @@ export const importProductsFile = async (event: APIGatewayProxyEvent): Promise<A
 
     const url = await s3.getSignedUrlPromise('putObject', params);
 
-    return formatJSONResponse({ url });
+    return formatJSONResponse({ url }, 202);
   } catch (error) {
-    return formatJSONError({ error });
+    return formatJSONError(error);
   }
 }
 
