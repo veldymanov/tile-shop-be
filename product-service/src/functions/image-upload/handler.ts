@@ -27,9 +27,8 @@ export const imageUpload = async (event: S3Event): Promise<APIGatewayProxyResult
     }
 
     return formatJSONResponse({ success: true });
-  } catch (e) {
-    console.log(e);
-    return formatJSONError({ error: e });
+  } catch (error) {
+    return formatJSONError({ error });
   }
 }
 

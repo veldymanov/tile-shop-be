@@ -1,29 +1,40 @@
 import type { APIGatewayProxyEvent, APIGatewayProxyResult, Handler } from "aws-lambda"
 import type { FromSchema } from "json-schema-to-ts";
 
-type ValidatedAPIGatewayProxyEvent<S> = Omit<APIGatewayProxyEvent, 'body'> & { body: FromSchema<S> }
-export type ValidatedEventAPIGatewayProxyEvent<S> = Handler<ValidatedAPIGatewayProxyEvent<S>, APIGatewayProxyResult>
+type ValidatedAPIGatewayProxyEvent<S> = Omit<APIGatewayProxyEvent, 'body'> & { body: FromSchema<S> };
+export type ValidatedEventAPIGatewayProxyEvent<S> = Handler<ValidatedAPIGatewayProxyEvent<S>, APIGatewayProxyResult>;
 
-export const formatJSONResponse = (resp: Record<string, unknown>) => {
+interface HttpResponse {
+  statusCode: number;
+  headers: Object;
+  body: Object;
+};
+
+const defaultHeaders = {
+  'Access-Control-Allow-Methods': '*',
+  'Access-Control-Allow-Headers': '*',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Credentials': true,
+}
+
+export const formatJSONResponse = (resp: Object, statusCode: number = 200) => {
   return {
-    statusCode: 200,
+    statusCode,
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true,
+      ...defaultHeaders
     },
     body: JSON.stringify(resp)
   }
 }
 
-export const formatJSONError = (err: Record<string, unknown>) => {
-  console.log(err.stack);
+export const formatJSONError = (err: Error | any, statusCode: number = 500) => {
+  console.error(err);
 
   return {
-    statusCode: 500,
+    statusCode,
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true,
+      ...defaultHeaders
     },
-    body: JSON.stringify(err)
+    body: JSON.stringify({message: JSON.stringify(err.message || 'Something went wrong')})
   }
 }

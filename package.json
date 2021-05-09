@@ -4,7 +4,11 @@
   "description": "Internet Shop",
   "scripts": {
     "deploy:product-service": "cd product-service && sls deploy",
-    "deploy:import-service": "cd import-service && sls deploy"
+    "deploy:import-service": "cd import-service && sls deploy",
+    "deploy:importProductsFile": "cd import-service && sls deploy -f importProductsFile",
+    "invoke:importProductsFile": "cd import-service && sls invoke local -f importProductsFile -p ./src/functions/import-products-file/mock.json",
+    "deploy:importFileParser": "cd import-service && sls deploy -f importFileParser",
+    "invoke:importFileParser": "cd import-service && sls invoke local -f importFileParser"
   },
   "author": "Veldymanov",
   "license": "ISC"

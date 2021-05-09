@@ -9,11 +9,10 @@ const BUCKET = 'tile-shop-storage';
 const REGION = 'eu-west-1';
 
 export const importFileParser = async (event: S3Event): Promise<APIGatewayProxyResult> => {
-  const s3 = new AWS.S3({ region: REGION })
+  const s3 = new AWS.S3({ region: REGION });
 
   try {
-    for (const record of event.Records) {
-      console.log('record  ', record);
+    event.Records.forEach((record) => {
       const params = {
         Bucket: BUCKET,
         Key: record.s3.object.key
@@ -24,24 +23,39 @@ export const importFileParser = async (event: S3Event): Promise<APIGatewayProxyR
       s3Stream
         .pipe(csv())
         .on('data', (data) => {
+          console.log('CSV pasre data chunk ', data);
           results.push(data);
-          console.log('data ', data);
+        })
+        .on('end', async () => {
+          console.log('CVS parse finished. Results: ', results);
+
+          const objUrl = `${BUCKET}/${record.s3.object.key}`;
+          console.log(`Copy from ${objUrl}`);
+
+          await s3.copyObject({
+            Bucket: BUCKET,
+            CopySource: objUrl,
+            Key: record.s3.object.key.replace('uploaded', 'parsed')
+          }).promise();
+
+          console.log(`Copied from ${objUrl}`);
+          console.log(`Delete from ${objUrl}`);
+
+          await s3.deleteObject({
+            Bucket: BUCKET,
+            Key: record.s3.object.key
+          }).promise();
+
+          console.log(`Deleted from ${objUrl}`);
         })
         .on('error', (error) => {
-          console.log('error ', error);
-        })
-        .on('end', ()=> {
-          console.log(results);
-          console.log('end');
-        })
-
-      console.log('Object Key  ', record.s3.object.key);
-    }
+          throw error;
+        });
+    });
 
     return formatJSONResponse({ success: true });
-  } catch (e) {
-    console.log(e);
-    return formatJSONError({ error: e });
+  } catch (error) {
+    return formatJSONError({ error });
   }
 }
 
