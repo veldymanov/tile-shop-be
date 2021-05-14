@@ -9,7 +9,7 @@ const BUCKET = 'tile-shop-storage';
 const REGION = 'eu-west-1';
 
 export const importFileParser = async (event: S3Event): Promise<APIGatewayProxyResult> => {
-  const s3 = new AWS.S3({ region: REGION });
+  const s3 = new AWS.S3({ region: REGION, signatureVersion: 'v4' });
 
   try {
     event.Records.forEach((record) => {
