@@ -1,10 +1,15 @@
 import AWSMock from "aws-sdk-mock";
 import AWS from "aws-sdk";
 import { importProductsFile } from './handler';
-import mockEvent from './mock.json';
-
 
 describe('importProductsFile', () => {
+  const fileName = 'fake.csv';
+  const mockEvent = {
+    queryStringParameters: {
+        name: fileName
+    }
+  };
+
   beforeEach(() => {
     AWSMock.setSDKInstance(AWS);
   });
@@ -14,7 +19,6 @@ describe('importProductsFile', () => {
   });
 
   it('should return signed url', async () => {
-    const fileName = 'fake.csv'
     const url = `https://tile-shop-storage.s3.eu-west-1.amazonaws.com/uploaded/${fileName}`;
     AWSMock.mock('S3', 'getSignedUrl', url);
     const res = await importProductsFile(mockEvent as any);
