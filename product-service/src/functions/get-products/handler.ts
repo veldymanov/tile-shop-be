@@ -7,9 +7,7 @@ import { getDbProducts } from './model';
 import { dbToDomainData } from './data-mapper';
 import { DBError } from '@libs/error-types';
 
-export const getProducts = async (
-  event: APIGatewayProxyEvent
-): Promise<APIGatewayProxyResult> => {
+export const getProducts = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     console.log('getProducts invokation, event: ', event.path);
     const dbProducts: ProductDB[] = await getDbProducts();
