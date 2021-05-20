@@ -10,6 +10,7 @@ const REGION = 'eu-west-1';
 
 export const importFileParser = async (event: S3Event): Promise<APIGatewayProxyResult> => {
   const s3 = new AWS.S3({ region: REGION, signatureVersion: 'v4' });
+  const sqs = new AWS.SQS();
 
   try {
     event.Records.forEach((record) => {
@@ -18,17 +19,19 @@ export const importFileParser = async (event: S3Event): Promise<APIGatewayProxyR
         Key: record.s3.object.key
       }
       const s3Stream = s3.getObject(params).createReadStream();
-      const results = [];
 
       s3Stream
         .pipe(csv())
         .on('data', (data) => {
-          console.log('CSV pasre data chunk ', data);
-          results.push(data);
+          sqs.sendMessage({
+            QueueUrl: process.env.SQS_URL,
+            MessageBody: JSON.stringify(data)
+          }, (error, resp) => {
+            console.log('error ', error);
+            console.log('resp ', resp);
+          })
         })
         .on('end', async () => {
-          console.log('CVS parse finished. Results: ', results);
-
           const objUrl = `${BUCKET}/${record.s3.object.key}`;
           console.log(`Copy from ${objUrl}`);
 
@@ -47,13 +50,12 @@ export const importFileParser = async (event: S3Event): Promise<APIGatewayProxyR
           }).promise();
 
           console.log(`Deleted from ${objUrl}`);
+          return formatJSONResponse(null, 202);
         })
         .on('error', (error) => {
           throw error;
         });
     });
-
-    return formatJSONResponse(null, 202);
   } catch (error) {
     return formatJSONError(error);
   }
