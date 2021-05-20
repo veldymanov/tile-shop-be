@@ -1,5 +1,5 @@
-import { SnakeObjectError } from '@libs/error-types';
-import { Product, ProductDB } from '@libs/interfaces';
+import { SnakeObjectError } from '@general-libs/error-types';
+import { Product, ProductDB } from '@general-libs/interfaces';
 import { dbToDomainData } from './data-mapper';
 
 const dbProducts: ProductDB[] = [

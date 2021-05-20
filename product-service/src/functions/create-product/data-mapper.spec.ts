@@ -1,5 +1,5 @@
-import { CamelObjectError } from '@libs/error-types';
-import { Product, ProductDB } from '@libs/interfaces';
+import { CamelObjectError } from '@general-libs/error-types';
+import { Product, ProductDB } from '@general-libs/interfaces';
 import { domainToDbData } from './data-mapper';
 
 const dbProduct: ProductDB = {

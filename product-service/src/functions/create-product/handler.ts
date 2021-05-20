@@ -2,8 +2,8 @@ import 'source-map-support/register';
 import { APIGatewayProxyResult } from 'aws-lambda';
 import { formatJSONResponse, formatJSONError, ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-import { DBError } from '@libs/error-types';
-import { Product, ProductDB } from '@libs/interfaces'
+import { DBError } from '@general-libs/error-types';
+import { Product, ProductDB } from '@general-libs/interfaces';
 import { createDbProduct } from './model';
 import { domainToDbData } from './data-mapper';
 

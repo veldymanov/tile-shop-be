@@ -2,10 +2,10 @@ import 'source-map-support/register';
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda'
 import { formatJSONResponse, formatJSONError } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-import { Product, ProductDB } from '@libs/interfaces';
+import { Product, ProductDB } from '@general-libs/interfaces';
 import { getDbProductById } from './model';
 import { dbToDomainData } from './data-mapper';
-import { DBError } from '@libs/error-types';
+import { DBError } from '@general-libs/error-types';
 
 export const getProductById = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {

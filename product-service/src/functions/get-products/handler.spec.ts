@@ -2,7 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { getProducts } from './handler';
 import mockEvent from './mock.json';
 import * as model from './model';
-import { Product } from '@libs/interfaces';
+import { Product } from '@general-libs/interfaces';
 
 const productsMock: Product[] = [
   {
