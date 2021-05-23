@@ -13,8 +13,8 @@ export const createProduct: ValidatedEventAPIGatewayProxyEvent<typeof schema> = 
   event
 ): Promise<APIGatewayProxyResult> => {
   try {
-    console.log('createProduct invokation, event: ', event.path);
     const dbProduct: ProductDB = domainToDbData(event.body as Product);
+    console.log('dbProduct: ', dbProduct);
     const res = await createDbProduct(dbProduct);
     return formatJSONResponse({ product: res });
   } catch (e) {

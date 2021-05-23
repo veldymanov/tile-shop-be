@@ -3,6 +3,7 @@ export interface dbObject {
 }
 export interface ProductDB {
   id?: string;
+  sku: string;
   title: string;
   description: string;
   price: number;
@@ -12,6 +13,7 @@ export interface ProductDB {
 }
 export interface Product {
   id?: string;
+  sku: string;
   title: string;
   description: string;
   price: number;
