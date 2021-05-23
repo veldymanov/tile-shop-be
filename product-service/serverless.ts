@@ -48,6 +48,13 @@ const serverlessConfiguration: AWS = {
           'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
         ]
       },
+      {
+        Effect: 'Allow',
+        Action: ['sns:*'],
+        Resource: [
+          {'Ref': 'createProductTopic'}
+        ],
+      },
     ],
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
