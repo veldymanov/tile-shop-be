@@ -4,6 +4,7 @@ import * as model from './model';
 import { Product, ProductDB } from '@libs/interfaces';
 
 const productMock: ProductDB = {
+  sku: 'qwerty1',
   count: 4,
   description: 'Short Product Description1',
   id: '7567ec4b-b10c-48c5-9345-fc73c48a80aa',
@@ -47,7 +48,7 @@ describe('getProductById', () => {
       }
     } as any;
     const resp: APIGatewayProxyResult = await getProductById(event);
-    const message = JSON.parse(resp.body).message;
+    const message = JSON.parse(resp.body);
 
     expect(getProductMock).toHaveBeenCalledTimes(1);
     expect(message).toBe('Product is missing');

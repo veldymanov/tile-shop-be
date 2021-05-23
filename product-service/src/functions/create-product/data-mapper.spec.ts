@@ -3,6 +3,7 @@ import { Product, ProductDB } from '@libs/interfaces';
 import { domainToDbData } from './data-mapper';
 
 const dbProduct: ProductDB = {
+  sku: 'qwerty1',
   count: 4,
   description: 'Short Product Description1',
   id: '7567ec4b-b10c-48c5-9345-fc73c48a80aa',
@@ -13,6 +14,7 @@ const dbProduct: ProductDB = {
 };
 
 const product: Product = {
+  sku: 'qwerty1',
   count: 4,
   description: 'Short Product Description1',
   id: '7567ec4b-b10c-48c5-9345-fc73c48a80aa',

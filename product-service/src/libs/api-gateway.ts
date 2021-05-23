@@ -24,6 +24,6 @@ export const formatJSONError = (err: Error, statusCode: number = 500) => {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': true,
     },
-    body: JSON.stringify(err)
+    body: JSON.stringify(err.message)
   }
 }
