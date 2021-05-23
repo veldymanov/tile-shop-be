@@ -5,10 +5,8 @@ export default {
   events: [
     {
       sqs: {
-        batchSize: 5,
-        arn: {
-          'Fn::GetAtt': ['catalogItemsQueue', 'Arn']
-        }
+        arn: 'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue',
+        batchSize: 5
       }
     }
   ]

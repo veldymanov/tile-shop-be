@@ -1,8 +1,9 @@
 import type { AWS } from '@serverless/typescript';
 
+import catalogBatchProcess from '@functions/catalog-batch-process';
+import createProduct from '@functions/create-product';
 import getProducts from '@functions/get-products';
 import getProductById from '@functions/get-product-by-id';
-import createProduct from '@functions/create-product';
 import getThumbnails from '@functions/get-thumbnails';
 import imageUpload from '@functions/image-upload';
 
@@ -40,6 +41,13 @@ const serverlessConfiguration: AWS = {
           'arn:aws:s3:::product-service-thumbnails/*'
         ],
       },
+      {
+        Effect: 'Allow',
+        Action: ['sqs:ReceiveMessage'],
+        Resource: [
+          'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
+        ]
+      },
     ],
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
@@ -47,14 +55,38 @@ const serverlessConfiguration: AWS = {
       PG_PORT: '5432',
       PG_DATABASE: 'postgres',
       PG_USERNAME: 'postgres',
-      PG_PASSWORD: '9nF4kozgDjSdRYtfD1cY'
+      PG_PASSWORD: '9nF4kozgDjSdRYtfD1cY',
+      SNS_PRODUCTS_ARN: {
+        Ref: 'createProductTopic'
+      },
+      SQS_PRODUCTS_ARN: 'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
     },
     lambdaHashingVersion: '20201221',
   },
-  // import the function via paths
+  resources: {
+    Resources: {
+      createProductTopic: {
+        Type: 'AWS::SNS::Topic',
+        Properties: {
+          TopicName: 'csv-products-parse-sqs-sns-topic'
+        }
+      },
+      SNSSubscription: {
+        Type: 'AWS::SNS::Subscription',
+        Properties: {
+          Endpoint: 'veldymanov.job@gmail.com',
+          Protocol: 'email',
+          TopicArn: {
+            Ref: 'createProductTopic'
+          }
+        }
+      }
+    }
+  },
   functions: {
-    getProducts,
+    catalogBatchProcess,
     createProduct,
+    getProducts,
     getProductById,
     getThumbnails,
     imageUpload

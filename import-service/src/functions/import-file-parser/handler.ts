@@ -24,7 +24,7 @@ export const importFileParser = async (event: S3Event): Promise<APIGatewayProxyR
         .pipe(csv())
         .on('data', (data) => {
           sqs.sendMessage({
-            QueueUrl: process.env.SQS_URL,
+            QueueUrl: process.env.SQS_PRODUCTS_ARN,
             MessageBody: JSON.stringify(data)
           }, (error, resp) => {
             console.log('error ', error);

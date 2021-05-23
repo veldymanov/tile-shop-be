@@ -22,6 +22,7 @@
     "@middy/http-json-body-parser": "^1.5.2",
     "aws-sdk": "^2.902.0",
     "csv-parser": "^3.0.0",
+    "pg": "^8.6.0",
     "source-map-support": "^0.5.19"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { getProductById } from './handler';
 import * as model from './model';
-import { Product, ProductDB } from '@general-libs/interfaces';
+import { Product, ProductDB } from '@libs/interfaces';
 
 const productMock: ProductDB = {
   count: 4,

@@ -2,8 +2,8 @@ import 'source-map-support/register';
 import { APIGatewayProxyResult } from 'aws-lambda';
 import { formatJSONResponse, formatJSONError, ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-import { DBError } from '@general-libs/error-types';
-import { Product, ProductDB } from '@general-libs/interfaces';
+import { DBError } from '@libs/error-types';
+import { Product, ProductDB } from '@libs/interfaces';
 import { createDbProduct } from './model';
 import { domainToDbData } from './data-mapper';
 
@@ -19,7 +19,7 @@ export const createProduct: ValidatedEventAPIGatewayProxyEvent<typeof schema> = 
     return formatJSONResponse({ product: res });
   } catch (e) {
     if (e instanceof DBError) {
-      return formatJSONError({ error: e });
+      return formatJSONError(e);
     } else {
       throw e;
     }

@@ -1,7 +1,7 @@
 import { Client, QueryResult } from 'pg';
 import { dbOptions } from '@libs/db';
-import { DBError } from '@general-libs/error-types';
-import { ProductDB } from '@general-libs/interfaces';
+import { DBError } from '@libs/error-types';
+import { ProductDB } from '@libs/interfaces';
 
 export const getDbProductById = async (id: string): Promise<ProductDB> => {
   const client = new Client(dbOptions);

@@ -2,10 +2,10 @@ import 'source-map-support/register';
 import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda';
 import { formatJSONResponse, formatJSONError } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-import { Product, ProductDB } from '@general-libs/interfaces'
+import { Product, ProductDB } from '@libs/interfaces'
 import { getDbProducts } from './model';
 import { dbToDomainData } from './data-mapper';
-import { DBError } from '@general-libs/error-types';
+import { DBError } from '@libs/error-types';
 
 export const getProducts = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
@@ -13,14 +13,14 @@ export const getProducts = async (event: APIGatewayProxyEvent): Promise<APIGatew
     const dbProducts: ProductDB[] = await getDbProducts();
 
     if (!dbProducts) {
-      return formatJSONError({ message: 'Products are missing' });
+      return formatJSONError( new Error('Products are missing'));
     }
 
     const products: Product[] = dbToDomainData(dbProducts);
     return formatJSONResponse({ data: products });
   } catch (e) {
     if ( e instanceof DBError) {
-      return formatJSONError({ error: e });
+      return formatJSONError(e);
     } else {
       throw e;
     }
