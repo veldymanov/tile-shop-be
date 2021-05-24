@@ -5,7 +5,8 @@ export default {
   events: [
     {
       sqs: {
-        arn: 'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue',
+        // arn: 'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue',
+        arn: '${self:provider.environment.SQS_PRODUCTS_ARN}',
         batchSize: 5
       }
     }

@@ -44,8 +44,11 @@ const serverlessConfiguration: AWS = {
       {
         Effect: 'Allow',
         Action: ['sqs:ReceiveMessage'],
+        // Resource: [
+        //   'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
+        // ],
         Resource: [
-          'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
+          '${self:provider.environment.SQS_PRODUCTS_ARN}'
         ]
       },
       {
