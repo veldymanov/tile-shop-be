@@ -5,6 +5,7 @@
   "main": "serverless.ts",
   "scripts": {
     "deploy": "sls deploy",
+    "deploy:catalogBatchProcess": "sls deploy -f catalogBatchProcess",
     "deploy:getProducts": "sls deploy -f getProducts",
     "invoke:getProducts": "sls invoke local -f getProducts -p ./src/functions/get-products/mock.json",
     "deploy:getProductById": "sls deploy -f getProductById",

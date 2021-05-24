@@ -15,26 +15,39 @@ export const catalogBatchProcess = async (event: SQSEvent): Promise<APIGatewayPr
 
   try {
     const products: Product[] = event.Records.map(({body}) => JSON.parse(body));
+
+    if (products.length === 0) {
+      throw new TypeError('No products to create/update stock');
+    }
+
     const dbProducts: ProductDB[] = products.map(product => domainToDbData(product));
     console.log('products ', products);
     console.log('dbProducts ', dbProducts);
     const res = await createDbProducts(dbProducts);
     console.log('res ', res);
 
-    sns.publish({
-      Subject: 'Created products',
-      Message: JSON.stringify(products),
-      TopicArn: process.env.SNS_PRODUCTS_ARN
-    }, (error, data) => {
-      if (error) {
-        throw error;
-      }
+    for (const product of products) {
+      sns.publish({
+        Subject: 'Created products',
+        Message: JSON.stringify(product),
+        TopicArn: process.env.SNS_PRODUCTS_ARN,
+      }, (error, res) => {
+        if (error) {
+          console.log('sns error', error)
+        }
 
-      console.log('data ', data);
-      return formatJSONResponse(null, 202);
-    });
+        console.log('sns res', res)
+
+      });
+
+      console.log('sns product', product);
+    }
+
+    return formatJSONResponse(null, 202)
   } catch (e) {
     if (e instanceof DBError) {
+      return formatJSONError(e);
+    } else if (e instanceof TypeError) {
       return formatJSONError(e);
     } else {
       throw e;

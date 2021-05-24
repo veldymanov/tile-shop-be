@@ -95,7 +95,7 @@ export const createDbProducts = async (products: ProductDB[]): Promise<{success:
     });
 
     if (stockValueSets.length < 1) {
-      throw new DBError('No products to create/update stock');
+      throw new TypeError('No products to create/update stock');
     }
 
     queryStock += stockValueSets.join(', ');

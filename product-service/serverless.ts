@@ -88,6 +88,10 @@ const serverlessConfiguration: AWS = {
           Protocol: 'email',
           TopicArn: {
             Ref: 'createProductTopic'
+          },
+          FilterPolicy: {
+            price: [{'numeric': ['>', 0, '<=', 8]}],
+            // description: ['descr10', 'descr11']
           }
         }
       }
