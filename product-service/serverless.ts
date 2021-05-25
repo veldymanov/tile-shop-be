@@ -44,12 +44,9 @@ const serverlessConfiguration: AWS = {
       {
         Effect: 'Allow',
         Action: ['sqs:ReceiveMessage'],
-        // Resource: [
-        //   'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
-        // ],
         Resource: [
-          '${cf:product-service-dev.CatalogItemsSqsArn}',
-          // '${self:provider.environment.SQS_PRODUCTS_ARN}'
+        //  'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
+          '${cf:import-service-dev.CatalogItemsSqsArn}'
         ]
       },
       {
@@ -70,7 +67,6 @@ const serverlessConfiguration: AWS = {
       SNS_PRODUCTS_ARN: {
         Ref: 'createProductTopic'
       },
-      // SQS_PRODUCTS_ARN: 'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
     },
     lambdaHashingVersion: '20201221',
   },

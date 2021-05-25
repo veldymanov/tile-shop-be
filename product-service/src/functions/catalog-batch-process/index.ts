@@ -6,8 +6,7 @@ export default {
     {
       sqs: {
         // arn: 'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue',
-        // arn: '${self:provider.environment.SQS_PRODUCTS_ARN}',
-        arn: '${cf:product-service-dev.CatalogItemsSqsArn}',
+        arn: '${cf:import-service-dev.CatalogItemsSqsArn}',
         batchSize: 5
       }
     }
