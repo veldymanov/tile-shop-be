@@ -11,6 +11,9 @@ const serverlessConfiguration: AWS = {
       webpackConfig: './webpack.config.js',
       includeModules: true,
     },
+    catalagItemsSqsArn: {
+      'Fn::GetAtt': [ 'catalogItemsQueue', 'Arn' ],
+    },
   },
   plugins: ['serverless-webpack'],
   provider: {
@@ -41,7 +44,7 @@ const serverlessConfiguration: AWS = {
         Effect: 'Allow',
         Action: ['sqs:SendMessage'],
         Resource: [
-          {'Fn::GetAtt': [ 'catalogItemsQueue', 'Arn' ]}
+          '${self:custom.catalagItemsSqsArn}'
         ],
       },
     ],
@@ -61,6 +64,19 @@ const serverlessConfiguration: AWS = {
           QueueName: 'csv-products-parse-sqs-sns-queue'
         }
       }
+    },
+    Outputs: {
+      CatalogItemsSqsUrl: {
+        Value: {
+          Ref: "catalogItemsQueue",
+        },
+      },
+      CatalogItemsSqsArn: {
+        Value: "${self:custom.catalagItemsSqsArn}",
+        Export: {
+          Name: "CatalogItemsSqsArn",
+        },
+      },
     }
   },
   functions: {
