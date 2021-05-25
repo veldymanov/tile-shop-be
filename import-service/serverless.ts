@@ -50,7 +50,7 @@ const serverlessConfiguration: AWS = {
     ],
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
-      SQS_PRODUCTS_ARN: {
+      CATALOG_ITEMS_SQS_URL: {
         Ref: 'catalogItemsQueue'
       }
     },
@@ -66,11 +66,11 @@ const serverlessConfiguration: AWS = {
       }
     },
     Outputs: {
-      CatalogItemsSqsUrl: {
-        Value: {
-          Ref: "catalogItemsQueue",
-        },
-      },
+      // CatalogItemsSqsUrl: {
+      //   Value: {
+      //     Ref: "catalogItemsQueue",
+      //   },
+      // },
       CatalogItemsSqsArn: {
         Value: "${self:custom.catalagItemsSqsArn}",
         Export: {
