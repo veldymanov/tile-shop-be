@@ -48,7 +48,8 @@ const serverlessConfiguration: AWS = {
         //   'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
         // ],
         Resource: [
-          '${self:provider.environment.SQS_PRODUCTS_ARN}'
+          '${cf:product-service-dev.CatalogItemsSqsArn}',
+          // '${self:provider.environment.SQS_PRODUCTS_ARN}'
         ]
       },
       {
@@ -69,7 +70,7 @@ const serverlessConfiguration: AWS = {
       SNS_PRODUCTS_ARN: {
         Ref: 'createProductTopic'
       },
-      SQS_PRODUCTS_ARN: 'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
+      // SQS_PRODUCTS_ARN: 'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
     },
     lambdaHashingVersion: '20201221',
   },
@@ -78,22 +79,38 @@ const serverlessConfiguration: AWS = {
       createProductTopic: {
         Type: 'AWS::SNS::Topic',
         Properties: {
-          TopicName: 'csv-products-parse-sqs-sns-topic'
+          TopicName: 'csv-products-uploaded'
         }
       },
-      SNSSubscription: {
-        Type: 'AWS::SNS::Subscription',
+      SNSSubscriptionSuccess: {
+        Type: "AWS::SNS::Subscription",
         Properties: {
-          Endpoint: 'veldymanov.job@gmail.com',
-          Protocol: 'email',
+          //TODO: move to env vars
+          Endpoint: "veldymanov.job@gmail.com",
+          Protocol: "email",
           TopicArn: {
-            Ref: 'createProductTopic'
+            Ref: "createProductTopic",
+          },
+          //TODO: move to env vars
+          // FilterPolicy: {
+          //   status: ["success"],
+          //   // price: [{'numeric': ['>', 0, '<=', 8]}],
+          //   // description: ['descr10', 'descr11']
+          // },
+        },
+      },
+      SNSSubscriptionFailure: {
+        Type: "AWS::SNS::Subscription",
+        Properties: {
+          Endpoint: "Andrii_Veldymanov@epam.com",
+          Protocol: "email",
+          TopicArn: {
+            Ref: "createProductTopic",
           },
           FilterPolicy: {
-            price: [{'numeric': ['>', 0, '<=', 8]}],
-            // description: ['descr10', 'descr11']
-          }
-        }
+            status: ["failure"],
+          },
+        },
       }
     }
   },
