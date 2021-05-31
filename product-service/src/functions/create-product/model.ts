@@ -11,15 +11,19 @@ export const createDbProduct = async (product: ProductDB): Promise<{success: boo
     await client.query('BEGIN');
 
     const queryProduct = `
-      INSERT INTO products (title, description, price, created_date, updated_date)
+      INSERT INTO products (sku, title, description, price, created_date, updated_date)
       VALUES(
-        $1, $2, $3,
+        $1, $2, $3, $4,
         CURRENT_TIMESTAMP at time zone 'utc',
         CURRENT_TIMESTAMP at time zone 'utc'
       )
       RETURNING id;
     `;
-    const valuesProduct = [product.title, product.description, product.price];
+    const valuesProduct = [product.sku, product.title, product.description, product.price];
+
+    console.log('queryProduct ', queryProduct);
+    console.log('valuesProduct ', valuesProduct);
+
     const resProduct = await client.query(queryProduct, valuesProduct);
 
     const queryStock = `
@@ -27,13 +31,12 @@ export const createDbProduct = async (product: ProductDB): Promise<{success: boo
       VALUES($1, $2);
     `;
     const valuesStock = [resProduct.rows[0].id, product.count];
-    await client.query(queryStock, valuesStock);
 
+    await client.query(queryStock, valuesStock);
     await client.query('COMMIT');
 
     return { success: true };
   } catch (e) {
-    console.error(e);
     await client.query('ROLLBACK')
     throw new DBError(e.message);
   } finally {

@@ -1,5 +1,5 @@
 import { CamelObjectError, SnakeObjectError } from './error-types';
-import {snakeToCamelObj, camelToSnakeObj } from './snake-camel'
+import { snakeToCamelObj, camelToSnakeObj } from './snake-camel'
 
 const snakeObj = {
   hello_world: 'Hello World',

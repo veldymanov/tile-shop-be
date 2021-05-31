@@ -13,14 +13,14 @@ export const getProducts = async (event: APIGatewayProxyEvent): Promise<APIGatew
     const dbProducts: ProductDB[] = await getDbProducts();
 
     if (!dbProducts) {
-      return formatJSONError({ message: 'Products are missing' });
+      return formatJSONError(new Error('Products are missing'));
     }
 
     const products: Product[] = dbToDomainData(dbProducts);
-    return formatJSONResponse({ products });
+    return formatJSONResponse({ data: products });
   } catch (e) {
     if ( e instanceof DBError) {
-      return formatJSONError({ error: e });
+      return formatJSONError(e);
     } else {
       throw e;
     }

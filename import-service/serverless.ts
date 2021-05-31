@@ -11,6 +11,9 @@ const serverlessConfiguration: AWS = {
       webpackConfig: './webpack.config.js',
       includeModules: true,
     },
+    catalagItemsSqsArn: {
+      'Fn::GetAtt': [ 'catalogItemsQueue', 'Arn' ],
+    },
   },
   plugins: ['serverless-webpack'],
   provider: {
@@ -37,11 +40,44 @@ const serverlessConfiguration: AWS = {
           'arn:aws:s3:::tile-shop-storage/*'
         ],
       },
+      {
+        Effect: 'Allow',
+        Action: ['sqs:SendMessage'],
+        Resource: [
+          '${self:custom.catalagItemsSqsArn}'
+        ],
+      },
     ],
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
+      CATALOG_ITEMS_SQS_URL: {
+        Ref: 'catalogItemsQueue'
+      }
     },
     lambdaHashingVersion: '20201221',
+  },
+  resources: {
+    Resources: {
+      catalogItemsQueue: {
+        Type: 'AWS::SQS::Queue',
+        Properties: {
+          QueueName: 'csv-products-parse-sqs-sns-queue'
+        }
+      }
+    },
+    Outputs: {
+      // CatalogItemsSqsUrl: {
+      //   Value: {
+      //     Ref: "catalogItemsQueue",
+      //   },
+      // },
+      CatalogItemsSqsArn: {
+        Value: "${self:custom.catalagItemsSqsArn}",
+        Export: {
+          Name: "CatalogItemsSqsArn",
+        },
+      },
+    }
   },
   functions: {
     importFileParser,

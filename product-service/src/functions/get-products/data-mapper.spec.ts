@@ -4,6 +4,7 @@ import { dbToDomainData } from './data-mapper';
 
 const dbProducts: ProductDB[] = [
   {
+    sku: 'qwerty1',
     count: 4,
     description: 'Short Product Description1',
     id: '7567ec4b-b10c-48c5-9345-fc73c48a80aa',
@@ -13,6 +14,7 @@ const dbProducts: ProductDB[] = [
     updated_date: new Date('01/01/2020')
   },
   {
+    sku: 'qwerty2',
     count: 6,
     description: 'Short Product Description3',
     id: '7567ec4b-b10c-48c5-9345-fc73c48a80a0',
@@ -25,6 +27,7 @@ const dbProducts: ProductDB[] = [
 
 const products: Product[] = [
   {
+    sku: 'qwerty1',
     count: 4,
     description: 'Short Product Description1',
     id: '7567ec4b-b10c-48c5-9345-fc73c48a80aa',
@@ -34,6 +37,7 @@ const products: Product[] = [
     updatedDate: new Date('01/01/2020')
   },
   {
+    sku: 'qwerty2',
     count: 6,
     description: 'Short Product Description3',
     id: '7567ec4b-b10c-48c5-9345-fc73c48a80a0',

@@ -1,6 +1,7 @@
 export default {
   type: "object",
   properties: {
+    sku: { type: 'string' },
     title: { type: 'string' },
     description: { type: 'string' },
     price: { type: 'number' },

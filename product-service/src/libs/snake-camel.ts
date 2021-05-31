@@ -1,5 +1,5 @@
 import { dbObject } from './interfaces';
-import { CamelObjectError, SnakeObjectError } from "./error-types";
+import { CamelObjectError, SnakeObjectError } from './error-types';
 
 
 const isArray = (obj: any): boolean => Array.isArray(obj);

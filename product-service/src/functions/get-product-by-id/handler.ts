@@ -14,14 +14,14 @@ export const getProductById = async (event: APIGatewayProxyEvent): Promise<APIGa
     const dbProduct: ProductDB = await getDbProductById(id);
 
     if (!dbProduct) {
-      return formatJSONError({ message: 'Product is missing' });
+      return formatJSONError(new Error('Product is missing'));
     }
 
     const product: Product = dbToDomainData(dbProduct);
     return formatJSONResponse({ product });
   } catch (e) {
     if (e instanceof DBError) {
-      return formatJSONError({ error: e });
+      return formatJSONError(e);
     } else {
       throw e;
     }

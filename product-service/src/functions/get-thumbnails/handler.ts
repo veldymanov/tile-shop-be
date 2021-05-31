@@ -26,7 +26,7 @@ export const getThumbnails = async (event: APIGatewayProxyEvent): Promise<APIGat
     return formatJSONResponse({ thumbnails });
   } catch (e) {
     if ( e instanceof Error) {
-      return formatJSONError({ error: e });
+      return formatJSONError(e);
     } else {
       throw e;
     }

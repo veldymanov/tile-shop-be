@@ -11,6 +11,7 @@ export const getDbProductById = async (id: string): Promise<ProductDB> => {
     const query = `
       SELECT
         p.id,
+        p.sku,
         p.title,
         p.description,
         p.price,

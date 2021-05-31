@@ -6,6 +6,7 @@ import { Product } from '@libs/interfaces';
 
 const productsMock: Product[] = [
   {
+    sku: 'qwerty1',
     count: 4,
     description: 'Short Product Description1',
     id: '7567ec4b-b10c-48c5-9345-fc73c48a80aa',
@@ -13,6 +14,7 @@ const productsMock: Product[] = [
     title: 'ProductOne'
   },
   {
+    sku: 'qwerty2',
     count: 6,
     description: 'Short Product Description3',
     id: '7567ec4b-b10c-48c5-9345-fc73c48a80a0',
