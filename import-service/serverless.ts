@@ -25,29 +25,33 @@ const serverlessConfiguration: AWS = {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
-    iamRoleStatements: [
-      {
-        Effect: 'Allow',
-        Action: ['s3:ListBucket'],
-        Resource: [
-          'arn:aws:s3:::tile-shop-storage'
-        ],
-      },
-      {
-        Effect: 'Allow',
-        Action: ['s3:*'],
-        Resource: [
-          'arn:aws:s3:::tile-shop-storage/*'
-        ],
-      },
-      {
-        Effect: 'Allow',
-        Action: ['sqs:SendMessage'],
-        Resource: [
-          '${self:custom.catalagItemsSqsArn}'
-        ],
-      },
-    ],
+    iam: {
+      role: {
+        statements: [
+          {
+            Effect: 'Allow',
+            Action: ['s3:ListBucket'],
+            Resource: [
+              'arn:aws:s3:::tile-shop-storage'
+            ],
+          },
+          {
+            Effect: 'Allow',
+            Action: ['s3:*'],
+            Resource: [
+              'arn:aws:s3:::tile-shop-storage/*'
+            ],
+          },
+          {
+            Effect: 'Allow',
+            Action: ['sqs:SendMessage'],
+            Resource: [
+              '${self:custom.catalagItemsSqsArn}'
+            ],
+          },
+        ]
+      }
+    },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       CATALOG_ITEMS_SQS_URL: {

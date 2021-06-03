@@ -24,37 +24,41 @@ const serverlessConfiguration: AWS = {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
-    iamRoleStatements: [
-      {
-        Effect: 'Allow',
-        Action: ['s3:ListBucket'],
-        Resource: [
-          'arn:aws:s3:::product-service-thumbnails'
-        ],
-      },
-      {
-        Effect: 'Allow',
-        Action: ['s3:*'],
-        Resource: [
-          'arn:aws:s3:::product-service-thumbnails/*'
-        ],
-      },
-      {
-        Effect: 'Allow',
-        Action: ['sqs:ReceiveMessage'],
-        Resource: [
-        //  'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
-          '${cf:import-service-dev.CatalogItemsSqsArn}'
+    iam: {
+      role: {
+        statements: [
+          {
+            Effect: 'Allow',
+            Action: ['s3:ListBucket'],
+            Resource: [
+              'arn:aws:s3:::product-service-thumbnails'
+            ],
+          },
+          {
+            Effect: 'Allow',
+            Action: ['s3:*'],
+            Resource: [
+              'arn:aws:s3:::product-service-thumbnails/*'
+            ],
+          },
+          {
+            Effect: 'Allow',
+            Action: ['sqs:ReceiveMessage'],
+            Resource: [
+            //  'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
+              '${cf:import-service-dev.CatalogItemsSqsArn}'
+            ]
+          },
+          {
+            Effect: 'Allow',
+            Action: ['sns:*'],
+            Resource: [
+              {'Ref': 'createProductTopic'}
+            ],
+          },
         ]
-      },
-      {
-        Effect: 'Allow',
-        Action: ['sns:*'],
-        Resource: [
-          {'Ref': 'createProductTopic'}
-        ],
-      },
-    ],
+      }
+    },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       SNS_PRODUCTS_ARN: {
