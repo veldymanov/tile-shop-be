@@ -4,8 +4,6 @@ import catalogBatchProcess from '@functions/catalog-batch-process';
 import createProduct from '@functions/create-product';
 import getProducts from '@functions/get-products';
 import getProductById from '@functions/get-product-by-id';
-import getThumbnails from '@functions/get-thumbnails';
-import imageUpload from '@functions/image-upload';
 
 const serverlessConfiguration: AWS = {
   service: 'product-service',
@@ -110,8 +108,6 @@ const serverlessConfiguration: AWS = {
     createProduct,
     getProducts,
     getProductById,
-    getThumbnails,
-    imageUpload
   },
 };
 
