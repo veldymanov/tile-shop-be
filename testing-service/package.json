@@ -1,21 +1,14 @@
 {
-  "name": "product-service",
+  "name": "testing-service",
   "version": "1.0.0",
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
     "deploy": "sls deploy",
-    "deploy:catalogBatchProcess": "sls deploy -f catalogBatchProcess",
-    "deploy:getProducts": "sls deploy -f getProducts",
-    "invoke:getProducts": "sls invoke local -f getProducts -p ./src/functions/get-products/mock.json",
-    "deploy:getProductById": "sls deploy -f getProductById",
-    "invoke:getProductById": "sls invoke local -f getProductById -p ./src/functions/get-product-by-id/mock.json",
-    "deploy:createProduct": "sls deploy -f createProduct",
-    "invoke:createProduct": "sls invoke local -f createProduct -p ./src/functions/create-product/mock.json",
-    "deploy:getThumbnails": "sls deploy -f getThumbnails",
-    "invoke:getThumbnails": "sls invoke local -f getThumbnails",
+    "deploy:hello": "sls deploy -f hello",
+    "invoke:hello": "sls invoke local -f hello -p ./src/functions/hello/mock.json",
     "test": "jest",
-    "test:file": "jest src/functions/get-products/handler.spec.ts"
+    "test:file": "jest src/functions/hello/handler.spec.ts"
   },
   "engines": {
     "node": ">=14.15.0"
@@ -23,23 +16,20 @@
   "dependencies": {
     "@middy/core": "^1.5.2",
     "@middy/http-json-body-parser": "^1.5.2",
-    "aws-sdk": "^2.920.0",
-    "pg": "^8.6.0",
     "source-map-support": "^0.5.19"
   },
   "devDependencies": {
     "@aws-sdk/types": "^3.15.0",
     "@serverless/typescript": "^2.43.1",
     "@types/aws-lambda": "^8.10.76",
-    "@types/jest": "^26.0.22",
+    "@types/jest": "^26.0.23",
     "@types/node": "^14.14.25",
-    "@types/pg": "^7.14.11",
-    "@types/uuid": "^8.3.0",
+    "aws-sdk-mock": "^5.1.0",
     "jest": "^26.6.3",
     "json-schema-to-ts": "^1.5.0",
     "serverless": "^2.44.0",
     "serverless-webpack": "^5.3.5",
-    "ts-jest": "^26.5.4",
+    "ts-jest": "^26.5.6",
     "ts-loader": "^8.0.15",
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",
