@@ -7,6 +7,8 @@
     "deploy": "sls deploy",
     "deploy:hello": "sls deploy -f hello",
     "invoke:hello": "sls invoke local -f hello -p ./src/functions/hello/mock.json",
+    "deploy:testingAuthorizer": "sls deploy -f testingAuthorizer",
+    "invoke:testingAuthorizer": "sls invoke local -f hello -p ./src/functions/testing-authorizer/mock.json",
     "test": "jest",
     "test:file": "jest src/functions/hello/handler.spec.ts"
   },
