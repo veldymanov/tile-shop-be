@@ -22,7 +22,8 @@ const basicAuthorizer = async (event, ctx, cb) => {
 
     console.log(`username: ${username} and password ${password}`);
 
-    const storedUserPassword = 'password';
+    const storedUserPassword = process.env[username];
+    console.log('storedUserPassword: ', storedUserPassword);
     const effect = !storedUserPassword || storedUserPassword !== password ? 'Deny' : 'Allow';
     const policy = generatePolicy(encodedCreds, event.methodArn, effect);
 
