@@ -1,5 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 
+import basicAuthorizer from '@functions/basic-authorizer'
 import hello from '@functions/hello';
 
 const serverlessConfiguration: AWS = {
@@ -25,7 +26,10 @@ const serverlessConfiguration: AWS = {
     lambdaHashingVersion: '20201221',
   },
   // import the function via paths
-  functions: { hello },
+  functions: {
+    basicAuthorizer,
+    hello
+  },
 };
 
 module.exports = serverlessConfiguration;

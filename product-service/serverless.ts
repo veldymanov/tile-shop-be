@@ -29,20 +29,6 @@ const serverlessConfiguration: AWS = {
         statements: [
           {
             Effect: 'Allow',
-            Action: ['s3:ListBucket'],
-            Resource: [
-              'arn:aws:s3:::product-service-thumbnails'
-            ],
-          },
-          {
-            Effect: 'Allow',
-            Action: ['s3:*'],
-            Resource: [
-              'arn:aws:s3:::product-service-thumbnails/*'
-            ],
-          },
-          {
-            Effect: 'Allow',
             Action: ['sqs:ReceiveMessage'],
             Resource: [
             //  'arn:aws:sqs:eu-west-1:132445318210:csv-products-parse-sqs-sns-queue'
@@ -55,7 +41,7 @@ const serverlessConfiguration: AWS = {
             Resource: [
               {'Ref': 'createProductTopic'}
             ],
-          },
+          }
         ]
       }
     },
