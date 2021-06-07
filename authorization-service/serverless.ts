@@ -10,7 +10,7 @@ const serverlessConfiguration: AWS = {
     webpack: {
       webpackConfig: './webpack.config.js',
       includeModules: true,
-    },
+    }
   },
   plugins: ['serverless-webpack'],
   provider: {
@@ -28,7 +28,6 @@ const serverlessConfiguration: AWS = {
     },
     lambdaHashingVersion: '20201221',
   },
-  // import the function via paths
   functions: {
     basicAuthorizer,
     hello
