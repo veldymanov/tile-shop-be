@@ -1,7 +1,7 @@
 import type { AWS } from '@serverless/typescript';
 
-import hello from '@functions/hello';
-import testingTokenAuthorizer from '@functions/testing-token-authorizer';
+// import hello from '@functions/hello';
+// import testingTokenAuthorizer from '@functions/testing-token-authorizer';
 // import getThumbnails from '@functions/get-thumbnails';
 // import imageUpload from '@functions/image-upload';
 
@@ -51,8 +51,8 @@ const serverlessConfiguration: AWS = {
   },
   // import the function via paths
   functions: {
-    testingTokenAuthorizer,
-    hello,
+    // testingTokenAuthorizer,
+    // hello,
     // getThumbnails,
     // imageUpload,
 
