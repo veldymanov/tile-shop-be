@@ -7,6 +7,7 @@ export default {
       http: {
         method: 'get',
         path: 'import',
+        cors: true,
         request: {
           parameters: {
             querystrings: {
@@ -14,7 +15,14 @@ export default {
             }
           }
         },
-        cors: true
+        authorizer: {
+          name: 'basicAuthorizer',
+          // arn: 'arn:aws:lambda:eu-west-1:132445318210:function:authorization-service-dev-basicAuthorizer',
+          arn: '${cf:authorization-service-dev.BasicAuthorizerLambdaFunctionQualifiedArn}',
+          type: 'token',
+          identitySource: 'method.request.header.authorization_token',
+          resultTtlInSeconds: 0
+        }
       }
     }
   ]
