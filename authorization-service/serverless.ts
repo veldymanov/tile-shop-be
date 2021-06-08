@@ -5,6 +5,8 @@ import hello from '@functions/hello';
 
 const serverlessConfiguration: AWS = {
   service: 'authorization-service',
+  useDotenv: true,
+  // variablesResolutionMode: '20210326',
   frameworkVersion: '2',
   custom: {
     webpack: {
@@ -12,19 +14,21 @@ const serverlessConfiguration: AWS = {
       includeModules: true,
     }
   },
-  plugins: ['serverless-webpack'],
+  plugins: [
+    'serverless-webpack',
+    'serverless-dotenv-plugin'
+  ],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
-    stage: 'dev',
-    region: 'eu-west-1',
+    stage: '${env:STAGE}',
+    region: '${env:REGION}' as any,
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
-      veldymanov: 'TEST_PASSWORD'
     },
     lambdaHashingVersion: '20201221',
   },

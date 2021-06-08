@@ -17,8 +17,8 @@ export default {
         },
         authorizer: {
           name: 'basicAuthorizer',
-          // arn: 'arn:aws:lambda:eu-west-1:132445318210:function:authorization-service-dev-basicAuthorizer',
-          arn: '${cf:authorization-service-dev.BasicAuthorizerLambdaFunctionQualifiedArn}',
+          // arn: 'arn:aws:lambda:eu-west-1:132445318210:function:authorization-service-development-basicAuthorizer',
+          arn: '${cf:authorization-service-development.BasicAuthorizerLambdaFunctionQualifiedArn}',
           type: 'token',
           identitySource: 'method.request.header.authorization_token',
           resultTtlInSeconds: 0
