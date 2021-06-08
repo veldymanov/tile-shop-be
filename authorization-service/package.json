@@ -32,7 +32,7 @@
     "json-schema-to-ts": "^1.6.4",
     "serverless": "^2.44.0",
     "serverless-dotenv-plugin": "^3.9.0",
-    "serverless-webpack": "^5.3.5",
+    "serverless-webpack": "^5.5.0",
     "ts-loader": "^8.0.15",
     "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",
