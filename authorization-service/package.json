@@ -5,7 +5,7 @@
   "main": "serverless.ts",
   "scripts": {
     "deploy": "sls deploy",
-    "deploy:development": "sls deploy --stage development",
+    "deploy:dev": "sls deploy --stage development",
     "deploy:hello": "sls deploy --stage development -f hello",
     "invoke:hello": "sls invoke local -f hello -p ./src/functions/hello/mock.json",
     "deploy:basicAuthorizer": "sls deploy --stage development -f basicAuthorizer",
