@@ -1,8 +1,8 @@
 import 'source-map-support/register';
-
+import { APIGatewayTokenAuthorizerEvent } from 'aws-lambda';
 import { middyfy } from '@libs/lambda';
 
-const basicAuthorizer = async (event, ctx, cb) => {
+const basicAuthorizer = async (event: APIGatewayTokenAuthorizerEvent, ctx, cb) => {
   console.log('event: ', event);
   console.log('context: ', ctx);
 

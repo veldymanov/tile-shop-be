@@ -27,13 +27,20 @@ export default {
           }
         },
         authorizer: {
-          name: 'basicAuthorizer',
-          // arn: 'arn:aws:lambda:eu-west-1:132445318210:function:authorization-service-development-basicAuthorizer',
-          arn: '${cf:authorization-service-development.BasicAuthorizerLambdaFunctionQualifiedArn}',
+          name: 'cognitoAuthorizer',
+          arn: 'arn:aws:cognito-idp:eu-west-1:132445318210:userpool/eu-west-1_usOWnNqOk',
           type: 'token',
-          identitySource: 'method.request.header.authorization_token',
+          identitySource: 'method.request.header.Authorization',
           resultTtlInSeconds: 0
         }
+        // authorizer: {
+        //   name: 'basicAuthorizer',
+        //   // arn: 'arn:aws:lambda:eu-west-1:132445318210:function:authorization-service-development-basicAuthorizer',
+        //   arn: '${cf:authorization-service-development.BasicAuthorizerLambdaFunctionQualifiedArn}',
+        //   type: 'token',
+        //   identitySource: 'method.request.header.authorization_token',
+        //   resultTtlInSeconds: 0
+        // }
       }
     }
   ]
