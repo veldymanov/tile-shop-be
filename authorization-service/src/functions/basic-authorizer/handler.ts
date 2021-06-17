@@ -1,8 +1,8 @@
 import 'source-map-support/register';
-import { APIGatewayTokenAuthorizerEvent } from 'aws-lambda';
+import { APIGatewayTokenAuthorizerEvent, APIGatewayTokenAuthorizerHandler } from 'aws-lambda';
 import { middyfy } from '@libs/lambda';
 
-const basicAuthorizer = async (event: APIGatewayTokenAuthorizerEvent, ctx, cb) => {
+const basicAuthorizer: APIGatewayTokenAuthorizerHandler = (event: APIGatewayTokenAuthorizerEvent, ctx, cb): void => {
   console.log('event: ', event);
   console.log('context: ', ctx);
 
@@ -10,15 +10,10 @@ const basicAuthorizer = async (event: APIGatewayTokenAuthorizerEvent, ctx, cb) =
     cb('Unauthorized');
   }
 
-  console.log('Right Type!')
-
   try {
     const authorizationToken = event.authorizationToken;
     const encodedCreds = authorizationToken.split(' ')[1];
-    const buff = Buffer.from(encodedCreds, 'base64');
-    const plainCreds = buff.toString('utf-8').split(':');
-    const username = plainCreds[0];
-    const password = plainCreds[1];
+    const [username, password] = Buffer.from(encodedCreds, 'base64').toString('utf-8').split(':');
 
     console.log(`username: ${username} and password ${password}`);
 
