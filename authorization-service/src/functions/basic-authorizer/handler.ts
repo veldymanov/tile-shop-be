@@ -1,8 +1,17 @@
 import 'source-map-support/register';
-import { APIGatewayTokenAuthorizerEvent, APIGatewayTokenAuthorizerHandler } from 'aws-lambda';
+import {
+  APIGatewayTokenAuthorizerEvent,
+  APIGatewayEventRequestContext,
+  APIGatewayAuthorizerCallback,
+  APIGatewayAuthorizerResult,
+} from 'aws-lambda';
 import { middyfy } from '@libs/lambda';
 
-const basicAuthorizer: APIGatewayTokenAuthorizerHandler = (event: APIGatewayTokenAuthorizerEvent, ctx, cb): void => {
+const basicAuthorizer = (
+  event: APIGatewayTokenAuthorizerEvent,
+  ctx: APIGatewayEventRequestContext,
+  cb: APIGatewayAuthorizerCallback
+): void => {
   console.log('event: ', event);
   console.log('context: ', ctx);
 
@@ -30,7 +39,11 @@ const basicAuthorizer: APIGatewayTokenAuthorizerHandler = (event: APIGatewayToke
   }
 }
 
-const generatePolicy = (principalId, resource, effect = 'Deny') => {
+const generatePolicy = (
+  principalId: string,
+  resource: string,
+  effect = 'Deny'
+): APIGatewayAuthorizerResult => {
   return {
     principalId,
     policyDocument: {
