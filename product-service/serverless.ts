@@ -7,6 +7,8 @@ import getProductById from '@functions/get-product-by-id';
 
 const serverlessConfiguration: AWS = {
   service: 'product-service',
+  useDotenv: true,
+  // variablesResolutionMode: '20210326',
   frameworkVersion: '2',
   custom: {
     webpack: {
@@ -14,12 +16,15 @@ const serverlessConfiguration: AWS = {
       includeModules: true,
     },
   },
-  plugins: ['serverless-webpack'],
+  plugins: [
+    'serverless-webpack',
+    'serverless-dotenv-plugin'
+  ],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
-    stage: 'dev',
-    region: 'eu-west-1',
+    // stage: '${env:STAGE}',
+    region: '${env:REGION}' as any,
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
