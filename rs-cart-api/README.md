@@ -63,7 +63,7 @@ $ npm run test:cov
 ```bash
 # The -t option is for giving our image a name, i.e., tagging it.
 $ docker build -t my-cart-api-dev .
-# And then run it:
+# and then run it:
 $ docker run my-cart-api-dev
 
 $ docker images
