@@ -6,7 +6,7 @@
 [travis-url]: https://travis-ci.org/nestjs/nest
 [linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
 [linux-url]: https://travis-ci.org/nestjs/nest
-  
+
   <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
     <p align="center">
 <a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
@@ -58,6 +58,28 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+```
+## Docker
+```bash
+# The -t option is for giving our image a name, i.e., tagging it.
+$ docker build -t my-cart-api-dev .
+# and then run it:
+$ docker run my-cart-api-dev
+
+$ docker images
+
+```
+
+## AWS Elastic Beanstalk
+```bash
+$ eb create my-cart-api-dev --elb-type application
+$ eb create development --single --cname my-cart-api-dev
+$ eb create development -s --envvars NODE_ENV=production, ENV_CONFIG=dev
+
+$ eb deploy my-cart-api-dev
+
+$ eb terminate my-cart-api-dev
+$ eb restore ${id}
 ```
 
 ## Support
