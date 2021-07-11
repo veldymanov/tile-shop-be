@@ -6,7 +6,7 @@ node_modules
 .pnp.js
 
 # compiled output
-/dist
+dist
 
 # Logs
 logs
