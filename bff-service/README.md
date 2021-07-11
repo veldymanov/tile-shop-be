@@ -58,6 +58,20 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## AWS Elastic Beanstalk
+```bash
+$ eb init
+
+$ eb create bff-service-dev --elb-type application
+$ eb create bff-service-dev --single
+$ eb create bff-service-dev -s --envvars NODE_ENV=production, ENV_CONFIG=dev
+
+$ eb deploy bff-service-dev
+
+$ eb terminate bff-service-dev
+$ eb restore ${id}
+```
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
