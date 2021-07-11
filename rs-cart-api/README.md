@@ -75,9 +75,11 @@ $ docker rmi <your-image-id>
 
 ## AWS Elastic Beanstalk
 ```bash
+$ eb init
+
 $ eb create my-cart-api-dev --elb-type application
-$ eb create development --single --cname my-cart-api-dev
-$ eb create development -s --envvars NODE_ENV=production, ENV_CONFIG=dev
+$ eb create my-cart-api-dev --single
+$ eb create my-cart-api-dev -s --envvars NODE_ENV=production, ENV_CONFIG=dev
 
 $ eb deploy my-cart-api-dev
 
