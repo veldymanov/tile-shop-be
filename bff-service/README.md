@@ -63,7 +63,7 @@ $ npm run test:cov
 $ eb init
 
 $ eb create bff-service-dev --elb-type application
-$ eb create bff-service-dev --single
+$ eb create development --single --cname bff-service-dev
 $ eb create bff-service-dev -s --envvars NODE_ENV=production, ENV_CONFIG=dev
 
 $ eb deploy bff-service-dev

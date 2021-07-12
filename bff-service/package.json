@@ -25,7 +25,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "eb-init": "eb init --platform node.js --region eu-west-1",
-    "eb-create": "eb create bff-service-dev --single",
+    "eb-create": "eb create development --single --cname bff-service-dev",
     "eb-terminate": "eb terminate",
     "eb-deploy": "npm run build && eb deploy bff-service-dev"
   },
