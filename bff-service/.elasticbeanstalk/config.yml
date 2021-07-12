@@ -1,9 +1,9 @@
 branch-defaults:
   default:
-    environment: development
+    environment: veldymanov-bff-api-dev
     group_suffix: null
 global:
-  application_name: bff-service
+  application_name: veldymanov-bff-api
   branch: null
   default_ec2_keyname: null
   default_platform: Node.js 14 running on 64bit Amazon Linux 2

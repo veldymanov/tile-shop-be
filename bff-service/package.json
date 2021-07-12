@@ -25,9 +25,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "eb-init": "eb init --platform node.js --region eu-west-1",
-    "eb-create": "eb create development --single --cname bff-service-dev",
-    "eb-terminate": "eb terminate",
-    "eb-deploy": "npm run build && eb deploy bff-service-dev"
+    "eb-create": "eb create veldymanov-bff-api-dev --single",
+    "eb-terminate": "eb terminate veldymanov-bff-api-dev",
+    "eb-deploy": "npm run build && eb deploy veldymanov-bff-api-dev"
   },
   "dependencies": {
     "@nestjs/axios": "^0.0.1",

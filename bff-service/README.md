@@ -60,15 +60,15 @@ $ npm run test:cov
 
 ## AWS Elastic Beanstalk
 ```bash
-$ eb init
+$ eb init --platform node.js --region eu-west-1
 
 $ eb create bff-service-dev --elb-type application
-$ eb create development --single --cname bff-service-dev
+$ eb create veldymanov-bff-api-dev --single
 $ eb create bff-service-dev -s --envvars NODE_ENV=production, ENV_CONFIG=dev
 
-$ eb deploy bff-service-dev
+$ eb deploy veldymanov-bff-api-dev
 
-$ eb terminate bff-service-dev
+$ eb terminate veldymanov-bff-api-dev
 $ eb restore ${id}
 ```
 
