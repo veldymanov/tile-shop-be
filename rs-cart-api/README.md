@@ -65,16 +65,21 @@ $ npm run test:cov
 $ docker build -t my-cart-api-dev .
 # and then run it:
 $ docker run my-cart-api-dev
+$ docker stop <your-container-id>
+# stop all containers
+$ docker ps -a -q
 
 $ docker images
-
+$ docker rmi <your-image-id>
 ```
 
 ## AWS Elastic Beanstalk
 ```bash
+$ eb init
+
 $ eb create my-cart-api-dev --elb-type application
-$ eb create development --single --cname my-cart-api-dev
-$ eb create development -s --envvars NODE_ENV=production, ENV_CONFIG=dev
+$ eb create my-cart-api-dev --single
+$ eb create my-cart-api-dev -s --envvars NODE_ENV=production, ENV_CONFIG=dev
 
 $ eb deploy my-cart-api-dev
 
