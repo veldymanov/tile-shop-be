@@ -1,7 +1,6 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { Product } from './core/interfaces/product';
 
 @Injectable()
 export class AppService {
@@ -11,7 +10,7 @@ export class AppService {
     return 'Hello World!';
   }
 
-  getProducts(config: AxiosRequestConfig): Observable<AxiosResponse<Product>> {
+  getProducts(config: AxiosRequestConfig): Observable<AxiosResponse<any>> {
     return this.httpService.request(config);
   }
 }
